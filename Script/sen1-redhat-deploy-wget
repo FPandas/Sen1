@@ -15,7 +15,7 @@ else
 cd /tmp
 
 #Download Agent
-wget --output-document=$pkgName http://$downloadLink
+wget --output-document=$pkgName $downloadLink
 
 #Install Agent
 chmod +x $pkgName
