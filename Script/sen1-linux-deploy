@@ -1,0 +1,30 @@
+#!/bin/bash
+
+sentinelToken="eyJ1cmwiOiAiaHR0cHM6Ly9hcHNlMS0yMDAxLnNlbnRpbmVsb25lLm5ldCIsICJzaXRlX2tleSI6ICI5YjFiZDlmOGE0MDIzY2ZkIn0="
+downloadLink="https://www.dropbox.com/scl/fi/g39vpc96ti6ivixpj7vx4/SentinelAgent_linux_x86_64_v24_1_2_6.deb?rlkey=k9qe898rojr73ighra8x81nql&st=b2iex9ew&dl=0"
+pkgName="linux_deb.deb"
+
+#You can put the installer on dropbox or where you prefer.
+
+if [ -d "/opt/sentinelone/" ];
+then 
+	echo "Already Installed"
+  exit 0
+else
+
+cd /tmp
+
+#Download Agent
+curl -L -o $pkgName $downloadLink
+
+#Install Agent
+chmod +x $pkgName
+dpkg -i $pkgName
+
+#Set Token
+/opt/sentinelone/bin/sentinelctl management token set $sentinelToken
+
+#Start Agent
+/opt/sentinelone/bin/sentinelctl control start
+
+fi
